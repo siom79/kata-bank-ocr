@@ -14,7 +14,7 @@ public class KataBankTest {
     public void testReadFile() {
         KataBank bank = new KataBank();
         bank.parse(new String[]{getAccountNumberFile()});
-        assertNotNull(bank.file);
+        assertNotNull(bank.content);
     }
 
     @Test(expected = KataBankException.class)

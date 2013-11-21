@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class KataBank {
-    File file;
     List<String> content;
     int lineCount;
     List<String> accountNumbers = new LinkedList<String>();
@@ -26,7 +25,6 @@ public class KataBank {
             throw new KataBankException();
         }
 
-        file = new File(strings[0]);
         try {
             content = Files.readAllLines(Paths.get(strings[0]), Charset.defaultCharset());
         } catch (IOException e) {

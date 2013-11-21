@@ -37,6 +37,14 @@ public class Parser {
             return 7;
         }
 
+        if(checkEight(number)) {
+            return 8;
+        }
+
+        if(checkNine(number)) {
+            return 9;
+        }
+
         throw new KataBankException("Input is not a number");
     }
 
@@ -78,6 +86,16 @@ public class Parser {
     private boolean checkSeven(char [][] input) {
         char [][] seven = new char[][]{{' ', '_', ' '}, {' ', ' ', '|'}, {' ', ' ', '|'}};
         return compare(input, seven);
+    }
+
+    private boolean checkEight(char[][] input) {
+        char[][] eight = new char[][]{{' ', '_', ' '}, {'|', '_', '|'}, {'|', '_', '|'}};
+        return compare(input, eight);
+    }
+
+    private boolean checkNine(char[][] input) {
+        char[][] nine = new char[][]{{' ', '_', ' '}, {'|', '_', '|'}, {' ', '_', '|'}};
+        return compare(input, nine);
     }
 
     private boolean compare(char[][] arg1, char[][]  arg2) {

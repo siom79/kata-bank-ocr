@@ -43,7 +43,7 @@ public class KataBank {
 
         lineCount = content.size() / 4;
 
-        for (int entry = 0; entry < lineCount; entry++) {
+        for (int entry = 0; entry < lineCount; entry+=4) {
             String currentLine = content.get(entry);
             StringBuilder stringBuilder = new StringBuilder();
             for (int column = 0; column < currentLine.length(); column += 3) {

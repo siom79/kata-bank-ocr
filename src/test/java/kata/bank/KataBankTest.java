@@ -2,19 +2,18 @@ package kata.bank;
 
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class KataBankTest {
-    private static final String C_TEMP_ACCOUNT_NUMBER_TXT = "c:\\temp\\AccountNumber.txt";
 
     @Test
     public void testReadFile() {
         KataBank bank = new KataBank();
-        bank.parse(new String[]{C_TEMP_ACCOUNT_NUMBER_TXT});
+        bank.parse(new String[]{getAccountNumberFile()});
         assertNotNull(bank.file);
     }
 
@@ -27,7 +26,7 @@ public class KataBankTest {
     @Test
     public void testFileContent() {
         KataBank bank = new KataBank();
-        bank.parse(C_TEMP_ACCOUNT_NUMBER_TXT);
+        bank.parse(getAccountNumberFile());
 
         assertNotNull(bank.content);
         assertTrue(bank.content.size() > 0);
@@ -36,16 +35,16 @@ public class KataBankTest {
     @Test
     public void testLineNumbers() {
         KataBank bank = new KataBank();
-        bank.parse(C_TEMP_ACCOUNT_NUMBER_TXT);
+        bank.parse(getAccountNumberFile());
 
         assertThat(bank.content.size(), is(44));
         assertThat(bank.lineCount, is(11));
     }
 
     @Test
-    public void testParseZeroNumber(){
+    public void testParseZeroNumber() {
         KataBank bank = new KataBank();
-        bank.parse(C_TEMP_ACCOUNT_NUMBER_TXT);
+        bank.parse(getAccountNumberFile());
 
         assertThat(bank.accountNumbers, hasItems("000000000"));
         /* assertThat(bank.accountNumbers.size(), is(1)); */
@@ -53,12 +52,15 @@ public class KataBankTest {
     }
 
     @Test
-    public void testParseOneNumber(){
+    public void testParseOneNumber() {
         KataBank bank = new KataBank();
-        bank.parse(C_TEMP_ACCOUNT_NUMBER_TXT);
+        bank.parse(getAccountNumberFile());
 
         assertThat(bank.accountNumbers, hasItems("111111111"));
         assertThat(bank.accountNumbers.get(1), is("111111111"));
     }
 
+    private String getAccountNumberFile() {
+        return System.getProperty("user.dir") + File.separator + "src/test/resources/AccountNumber.txt";
+    }
 }

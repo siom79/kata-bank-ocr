@@ -65,4 +65,18 @@ public class ParserTest {
         int oneInt = parser.parse(sevenNumber);
         assertThat(oneInt, is(7));
     }
+
+    @Test
+    public void testParseEight(){
+        char [][] eightNumber = new char[][]{{' ', '_', ' '}, {'|', '_', '|'}, {'|', '_', '|'}};
+        int oneInt = parser.parse(eightNumber);
+        assertThat(oneInt, is(8));
+    }
+
+    @Test
+    public void testParseNine(){
+        char [][] nineNumber = new char[][]{{' ', '_', ' '}, {'|', '_', '|'}, {' ', '_', '|'}};
+        int oneInt = parser.parse(nineNumber);
+        assertThat(oneInt, is(9));
+    }
 }

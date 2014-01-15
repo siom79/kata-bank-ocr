@@ -13,14 +13,14 @@ public class KataBankTest {
     @Test
     public void testReadFile() {
         KataBank bank = new KataBank();
-        bank.parse(new String[]{getAccountNumberFile()});
+        bank.parse(getAccountNumberFile());
         assertNotNull(bank.content);
     }
 
     @Test(expected = KataBankException.class)
     public void testNoProgramArgument() {
         KataBank bank = new KataBank();
-        bank.parse(new String[]{});
+        bank.parse();
     }
 
     @Test
@@ -46,9 +46,9 @@ public class KataBankTest {
         KataBank bank = new KataBank();
         bank.parse(getAccountNumberFile());
 
-        assertThat(bank.accountNumbers, hasItems("000000000"));
+        assertThat(bank.accountNumbers, hasItems(new BankAccountNumber("000000000")));
         /* assertThat(bank.accountNumbers.size(), is(1)); */
-        assertThat(bank.accountNumbers.get(0), is("000000000"));
+        assertThat(bank.accountNumbers.get(0), is(new BankAccountNumber("000000000")));
     }
 
     @Test
@@ -56,8 +56,8 @@ public class KataBankTest {
         KataBank bank = new KataBank();
         bank.parse(getAccountNumberFile());
 
-        assertThat(bank.accountNumbers, hasItems("111111111"));
-        assertThat(bank.accountNumbers.get(1), is("111111111"));
+        assertThat(bank.accountNumbers, hasItems(new BankAccountNumber("111111111")));
+        assertThat(bank.accountNumbers.get(1), is(new BankAccountNumber("111111111")));
     }
 
     private String getAccountNumberFile() {

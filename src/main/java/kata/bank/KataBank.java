@@ -1,18 +1,16 @@
 package kata.bank;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class KataBank {
     List<String> content;
     int lineCount;
-    List<String> accountNumbers = new LinkedList<String>();
+    List<BankAccountNumber> accountNumbers = new LinkedList<BankAccountNumber>();
     Parser parser = new Parser();
 
     public static void main(String... args) {
@@ -48,7 +46,7 @@ public class KataBank {
                 char[][] singleAccountNumber = getSingleAccountNumber(content, entry, column);
                 stringBuilder.append(parser.parse(singleAccountNumber));
             }
-            accountNumbers.add(stringBuilder.toString());
+            accountNumbers.add(new BankAccountNumber(stringBuilder.toString()));
         }
     }
 

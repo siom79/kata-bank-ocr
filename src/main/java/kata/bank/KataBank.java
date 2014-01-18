@@ -1,9 +1,12 @@
 package kata.bank;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class KataBank {
 
         int line = 1;
         for (String lineContent : content) {
-            if (lineContent.length() < 27) {
+            if (lineContent.length() < 27 && lineContent.trim().length() > 0) {
                 throw new KataBankException("Line " + line + " has not length 27, but " + lineContent.length());
             }
             line++;
@@ -44,9 +47,26 @@ public class KataBank {
             StringBuilder stringBuilder = new StringBuilder();
             for (int column = 0; column < currentLine.length(); column += 3) {
                 char[][] singleAccountNumber = getSingleAccountNumber(content, entry, column);
-                stringBuilder.append(parser.parse(singleAccountNumber));
+                try {
+                    stringBuilder.append(parser.parse(singleAccountNumber));
+                } catch (IllegalDigitException e) {
+                    stringBuilder.append("?");
+                }
             }
             accountNumbers.add(new BankAccountNumber(stringBuilder.toString()));
+        }
+
+        Path outputFilePath = Paths.get(System.getProperty("user.dir") + File.separator + "src/test/resources/AccountNumberOutput.txt");
+
+        List<String> accountNumbersAsString = new ArrayList<String>();
+        for(BankAccountNumber number: accountNumbers) {
+            accountNumbersAsString.add(number.toString());
+        }
+
+        try {
+            Files.write(outputFilePath, accountNumbersAsString, Charset.defaultCharset());
+        } catch (IOException e) {
+            throw new KataBankException(e);
         }
     }
 
@@ -56,5 +76,9 @@ public class KataBank {
             lines[i] = content.get(entry + i).substring(column, column + 3).toCharArray();
         }
         return lines;
+    }
+
+    public void writeToFile(String outputFilename) {
+
     }
 }

@@ -6,6 +6,10 @@ public class KataBankException extends RuntimeException {
         super(message);
     }
 
+    public KataBankException(Throwable throwable) {
+        super(throwable);
+    }
+
     public KataBankException(){
 
     }

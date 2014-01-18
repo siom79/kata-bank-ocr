@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Parser {
 
-    public int parse(char[][] number) {
+    public int parse(char[][] number) throws IllegalDigitException {
         if(checkZero(number)) {
             return 0;
         }
@@ -45,7 +45,7 @@ public class Parser {
             return 9;
         }
 
-        throw new KataBankException("Input is not a number");
+        throw new IllegalDigitException("Input is not a number");
     }
 
     private boolean checkZero(char [][] input) {

@@ -3,6 +3,11 @@ package kata.bank;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -61,6 +66,20 @@ public class KataBankTest {
     }
 
     private String getAccountNumberFile() {
-        return System.getProperty("user.dir") + File.separator + "src/test/resources/AccountNumber.txt";
+        return System.getProperty("user.dir") + File.separator + "src/test/resources/lasttest.txt";
+    }
+
+    private String getOutputFilename() {
+        return System.getProperty("user.dir") + File.separator + "src/test/resources/AccountNumberOutput.txt";
+    }
+
+    @Test
+    public void testOutputLine() throws IOException {
+        KataBank bank = new KataBank();
+        bank.parse(getAccountNumberFile());
+        bank.writeToFile(getOutputFilename());
+        List<String> allLines = Files.readAllLines(Paths.get(getOutputFilename()), Charset.defaultCharset());
+        assertTrue(allLines.size() > 0);
+        assertThat(allLines.get(0), is("000000000"));
     }
 }
